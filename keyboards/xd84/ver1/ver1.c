@@ -13,25 +13,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "ver1.h"
 
-#pragma once
+void keyboard_pre_init_kb(void) {
+  setPinOutput(B6);
 
-#include "config_common.h"
+  keyboard_pre_init_user();
+}
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7844   // "XD"
-#define MANUFACTURER    KPrepublic
-#define PRODUCT         XD84
+void led_set_kb(uint8_t usb_led) {
+  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+    writePinLow(B6);
+  } else {
+    writePinHigh(B6);
+  }
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+  led_set_user(usb_led);
+}

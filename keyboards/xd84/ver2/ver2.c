@@ -1,4 +1,4 @@
-/* Copyright 2019
+/* Copyright 2020
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,25 +13,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "ver2.h"
 
-#pragma once
-
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7844   // "XD"
-#define MANUFACTURER    KPrepublic
-#define PRODUCT         XD84
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+void keyboard_pre_init_kb(void) {
+    led_init_ports();
+    keyboard_pre_init_user();
+}
+void led_init_ports(void) {
+    setPinOutput(B2);
+}
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(B2, !led_state.caps_lock);
+    }
+    return false;
+}
