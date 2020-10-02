@@ -12,7 +12,7 @@ Reboot to bootloader via bridging 2 contacts points in the icsp header.
 Flash using regular dfu methods.
 
 # RGB
-- PIN F6
+- PIN F6 
 - Number of RGB LED: 12
 
 # Backlight
